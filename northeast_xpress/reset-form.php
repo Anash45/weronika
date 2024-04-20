@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $conn->real_escape_string($_POST['email']);
 
     // Check if email exists
-    $email_check_query = "SELECT UserID FROM Users WHERE Email = '$email'";
+    $email_check_query = "SELECT UserID FROM users WHERE Email = '$email'";
     $email_result = $conn->query($email_check_query);
 
     if ($email_result->num_rows > 0) {
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $otp = mt_rand(100000, 999999); // Generate 6-digit OTP
 
         // Update OTP in the database
-        $update_query = "UPDATE Users SET otp = '$otp' WHERE Email = '$email'";
+        $update_query = "UPDATE users SET otp = '$otp' WHERE Email = '$email'";
         if ($conn->query($update_query) === TRUE) {
             // Send OTP to the email address
             $to = $email;

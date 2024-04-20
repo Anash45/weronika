@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check if new email is not used by another user
-    $email_check_query = "SELECT UserID FROM Users WHERE Email = '$email' AND UserID != $userID";
+    $email_check_query = "SELECT UserID FROM users WHERE Email = '$email' AND UserID != $userID";
     $email_result = $conn->query($email_check_query);
 
     if ($email_result->num_rows > 0) {
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
 
         // Update profile information in the database
-        $update_query = "UPDATE Users SET FirstName = '$firstName', LastName = '$lastName', Email = '$email', Phone = '$phone' ".$attach." WHERE UserID = $userID";
+        $update_query = "UPDATE users SET FirstName = '$firstName', LastName = '$lastName', Email = '$email', Phone = '$phone' ".$attach." WHERE UserID = $userID";
         if ($conn->query($update_query) === TRUE) {
             // Profile information updated successfully
             $info = "<p class='alert alert-success'>Profile information updated successfully.</p>";
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Retrieve user information from the database based on UserID
-$query = "SELECT FirstName, LastName, Email, Phone FROM Users WHERE UserID = $userID";
+$query = "SELECT FirstName, LastName, Email, Phone FROM users WHERE UserID = $userID";
 $result = $conn->query($query);
 
 // Check if query was successful

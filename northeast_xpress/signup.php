@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Check if email already exists
-    $email_check_query = "SELECT UserID FROM Users WHERE Email = '$email'";
+    $email_check_query = "SELECT UserID FROM users WHERE Email = '$email'";
     $email_result = $conn->query($email_check_query);
 
     if ($email_result->num_rows > 0) {
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $info = "<p class='alert alert-danger'>Error: Email already exists.</p>";
     } else {
         // Insert data into database with hashed password
-        $insert_query = "INSERT INTO Users (FirstName, LastName, Email, Phone, Password) VALUES ('$fname', '$lname', '$email', '$phone', '$hashed_password')";
+        $insert_query = "INSERT INTO users (FirstName, LastName, Email, Phone, Password) VALUES ('$fname', '$lname', '$email', '$phone', '$hashed_password')";
         if ($conn->query($insert_query) === TRUE) {
             // Success
             $info = "<p class='alert alert-success'>User registered successfully.</p>";

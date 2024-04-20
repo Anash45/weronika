@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_SESSION['reset_email'];
 
         // Verify the code
-        $query = "SELECT otp FROM Users WHERE Email = '$email'";
+        $query = "SELECT otp FROM users WHERE Email = '$email'";
         $result = $conn->query($query);
 
         if ($result->num_rows == 1) {
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($code == $stored_code) {
                 // Code matches, update the password
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $update_query = "UPDATE Users SET Password = '$hashed_password', otp = NULL WHERE Email = '$email'";
+                $update_query = "UPDATE users SET Password = '$hashed_password', otp = NULL WHERE Email = '$email'";
                 if ($conn->query($update_query) === TRUE) {
                     // Password updated successfully
                     $info = "<p class='alert alert-success'>Password reset successfully.</p>";

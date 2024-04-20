@@ -13,8 +13,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Retrieve user data from the database
-    echo $query = "SELECT UserID, FirstName, Role, Password FROM Users WHERE Email = '$email'";
-    
+    $query = "SELECT UserID, FirstName, Role, Password FROM users WHERE Email = '$email'";
+    $result = $conn->query($query);
+
+    if ($result->num_rows == 1) {
+        // User found, verify password
+        $row = $result->fetch_assoc();
+        $userID = $row['UserID'];
+        $firstName = $row['FirstName'];
+        $role = $row['Role'];
+        $hashed_password = $row['Password'];
+
+        if (password_verify($password, $hashed_password)) {
+            // Password is correct, store user information in session
+            $_SESSION['UserID'] = $userID;
+            $_SESSION['FirstName'] = $firstName;
+            $_SESSION['Role'] = $role;
+
+            // Redirect to homepage
+            header("Location: index.php");
+            exit();
+        } else {
+            // Incorrect password
+            $info = "<p class='alert alert-danger'>Incorrect email or password.</p>";
+        }
+    } else {
+        // User not found
+        $info = "<p class='alert alert-danger'>Incorrect email.</p>";
+    }
 }
 
 // Close connection
