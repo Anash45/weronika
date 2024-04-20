@@ -26,13 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $to = $email;
             $subject = 'Reset Password OTP';
             $message = 'Your OTP for resetting the password is: ' . $otp;
-            $headers = 'From: webmaster@f4futuretech.com' . "\r\n" .
+            $headers = "From: <North Ease Xpress>" . "\r\n";
                        'Reply-To: info@f4futuretech.com' . "\r\n" .
                        'X-Mailer: PHP/' . phpversion();
 
-            // if (mail($to, $subject, $message, $headers)) {
-                
-            if (true) {
+            if (mail($to, $subject, $message, $headers)) {
                 // Email sent successfully
                 $_SESSION['reset_email'] = $email;
                 header("Location: reset-password.php");

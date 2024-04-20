@@ -33,14 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ";
 
     // Set additional headers
-    $headers = "From: webmaster@f4futuretech.com" . "\r\n";
+    $headers = "From: <North Ease Xpress>" . "\r\n";
     $headers .= "Reply-To: {$_POST['email']}" . "\r\n";
     $headers .= "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1" . "\r\n";
 
     // Send email
-    // if (mail($to, $subject, $message, $headers)) {
-    if(true) {
+    if (mail($to, $subject, $message, $headers)) {
         $info = "<p class='alert alert-success'>Email sent successfully.</p>";
     } else {
         $info = "<p class='alert alert-danger'>Failed to send email. Please try again later.</p>";
