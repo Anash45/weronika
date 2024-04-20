@@ -228,14 +228,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             $status = ($row['approved']) ? '<b class="text-success mr-2">Approved</b>' : '<b class="text-warning mr-2">Pending</b>';
                                             $vehiclesHTML .= $status;
                                             if (isAdmin()) {
-                                                $statusBtn = (!$row['approved']) ? '<a class="btn btn-sm btn-success" href="?id=' . $row['id'] . '&approve=1">Approve</a>' : '<a class="btn btn-sm btn-danger" href="?id=' . $row['id'] . '&approve=0">Disapprove</a>';
+                                                $statusBtn = (!$row['approved']) ? '<a class="btn btn-sm mr-1 btn-success" href="?id=' . $row['id'] . '&approve=1">Approve</a>' : '<a class="btn btn-sm mr-1 btn-danger" href="?id=' . $row['id'] . '&approve=0">Disapprove</a>';
                                                 $vehiclesHTML .= $statusBtn;
                                             } else {
-                                                $remindBtn = '<a class="btn btn-sm btn-success" href="message.php?remindDm=' . $row['id'] . '">Remind</a>';
+                                                $remindBtn = '<a class="btn btn-sm mr-1 btn-success" href="message.php?remindDm=' . $row['id'] . '">Remind</a>';
                                                 $vehiclesHTML .= $remindBtn;
                                             }
-                                            $vehiclesHTML .= '<a href="vehicle-details.php?id=' . $row['id'] . '" class="btn btn-primary btn-sm">Details</a>';
-                                            $vehiclesHTML .= '<a href="?delete=' . $row['id'] . '" class="remove-vehicle-btn btn btn-light btn-outline-dark"><img src="assets/img/delete-button.png" alt="bin icon"></a>';
+                                            $vehiclesHTML .= '<a href="vehicle-details.php?id=' . $row['id'] . '" class="btn btn-primary mr-1 btn-sm">Details</a>';
+                                            if (isAdmin()) {
+                                                $vehiclesHTML .= '<a href="message.php?UserID='.$row['UserID'].'" class="btn btn-warning btn-sm"><img src="assets/img/speech-bubble.png" alt="bin icon" height="20"></a>';
+                                            } else {
+                                                $vehiclesHTML .= '<a href="message.php" class="btn btn-warning btn-sm"><img src="assets/img/speech-bubble.png" alt="bin icon" height="20"></a>';
+                                            }
+                                            $vehiclesHTML .= '<a href="?delete=' . $row['id'] . '" class="remove-vehicle-btn btn btn-light"><img src="assets/img/delete-button.png" alt="bin icon"></a>';
                                             $vehiclesHTML .= '</div></div></div></td></tr>';
                                         }
                                     } else {
