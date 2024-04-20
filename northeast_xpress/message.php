@@ -46,13 +46,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
     // Get the message from the form
     $message = $conn->real_escape_string($_POST['message']);
     sendMessage($message);
-}
-
-if (isset($_GET['remindDm'])) {
+} elseif (isset($_GET['remindDm'])) {
     // Get the message from the form
     $vehicleID = $_GET['remindDm'];
-    $message = 'Hey sir, kindly approve the spot for my <a href="vehicle-details.php?id='.$vehicleID.'">vehicle</a>.';
+    $message = 'Hey sir, kindly approve the spot for my <a href="vehicle-details.php?id=' . $vehicleID . '">vehicle</a>.';
     sendMessage($message);
+    header("Location: message.php");
+} elseif (isset($_POST['repairRequest'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $message = $_POST['message'];
+
+    $formatMessage = '<b>Subject: Vehicle Repair Request</b><br>
+    <b>From:</b> ' . $name . ' <br>
+    <b>Email:</b> ' . $email . ' <br>
+    <b>Message:</b> ' . $message;
+    sendMessage($formatMessage);
     header("Location: message.php");
 }
 ?>
@@ -84,8 +93,8 @@ if (isset($_GET['remindDm'])) {
             <div class="container">
                 <div class="col-md-8 col-12 messages mx-auto pb-3">
                     <div class="chat border">
-                        <div class="chat-header p-2 border-bottom">
-                            <h5 class="mb-0">Chat</h5>
+                        <div class="chat-header p-2 border-bottom d-flex align-items-center ">
+                            <a href="vehicles.php" class="btn btn-primary mr-3 text-white btn-sm">Back</a><h5 class="mb-0">Chat</h5>
                         </div>
                         <div class="chat-body p-2" id="chat-body">
                             <?php
@@ -98,21 +107,21 @@ if (isset($_GET['remindDm'])) {
                                         echo '<div class="chat-message sender-message">
                                         <div class="message-content">
                                             <p class="chat-text">' . $row['MessageContent'] . '</p>
-                                            <p class="chat-date">' . $row['Timestamp'] . '</p>
+                                            <p class="chat-date">' . date('h:i:s | d M, Y', strtotime($row['Timestamp'])) . '</p>
                                         </div>
                                     </div>';
                                     } elseif (isUser() && $row['sender'] == 'user') {
                                         echo '<div class="chat-message sender-message">
                                         <div class="message-content">
                                             <p class="chat-text">' . $row['MessageContent'] . '</p>
-                                            <p class="chat-date">' . $row['Timestamp'] . '</p>
+                                            <p class="chat-date">' . date('h:i:s | d M, Y', strtotime($row['Timestamp'])) . '</p>
                                         </div>
                                     </div>';
                                     } else {
                                         echo '<div class="chat-message receiver-message">
                                         <div class="message-content">
                                             <p class="chat-text">' . $row['MessageContent'] . '</p>
-                                            <p class="chat-date">' . $row['Timestamp'] . '</p>
+                                            <p class="chat-date">' . date('h:i:s | d M, Y', strtotime($row['Timestamp'])) . '</p>
                                         </div>
                                     </div>';
                                     }

@@ -263,18 +263,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
         <!-- FIX TRUCK BUTTON + FORM -->
-        <div class="container-fluid fix">
-            <div class="row justify-content-end">
-                <div class="col-auto" id="fixTruckButton">
-                    <button onclick="openForm()" class="fix-truck-button">Need to fix your<br>truck?</button>
+        <?php
+        if (isUser()) {
+            ?>
+            <div class="container-fluid fix">
+                <div class="row justify-content-end">
+                    <div class="col-auto" id="fixTruckButton">
+                        <button onclick="openForm()" class="fix-truck-button">Need to fix your<br>truck?</button>
+                    </div>
                 </div>
             </div>
-        </div>
+            <?php
+        }
+        ?>
         <!-- The pop-out form -->
         <div id="myForm" class="popup-form">
             <h2>Vehicle Fix Request</h2>
             <p>Please provide as much detail as possible regarding<br> the issue your vehicle is encountering.</p>
-            <form action="#">
+            <form action="message.php" method="POST">
                 <!-- Dummy input fields -->
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required><br><br>
@@ -283,7 +289,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="message">Message:</label><br>
                 <textarea id="message" name="message" rows="4" cols="40" required></textarea><br><br>
                 <div class="buttons">
-                    <button type="submit" class="fix-submit-btn">Send</button>
+                    <button type="submit" class="fix-submit-btn" name="repairRequest">Send</button>
                     <button type="button" class="fix-close-btn" onclick="closeForm()">Close</button>
                 </div>
             </form>

@@ -74,10 +74,12 @@ $vehicleID = $_GET['id'];
                             // Output vehicle information in the table
                             echo '<table class="tprofile table table-borderless">';
                             while ($row = $result->fetch_assoc()) {
+                                echo '<tr><td><a class="btn btn-primary mr-3 text-white btn-sm" href="vehicles.php">Back</a></td><td>';
                                 if (isAdmin()) {
                                     $statusBtn = (!$row['approved']) ? '<a class="btn btn-sm btn-success" href="?id=' . $vehicleID . '&approve=1">Approve</a>' : '<a class="btn btn-sm btn-danger" href="?id=' . $row['id'] . '&approve=0">Disapprove</a>';
-                                    echo '<tr><td colspan="2" class="text-right">' . $statusBtn . '</td></tr>';
+                                    echo $statusBtn;
                                 }
+                                echo '</td></tr>';
                                 // Loop through each column and display its name and value
                                 foreach ($row as $key => $value) {
                                     if ($key == 'approved') {

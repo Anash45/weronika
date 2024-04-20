@@ -1197,6 +1197,10 @@ body {
     font-size: 14px;
     line-height: 130%;
 }
+.chat-date{
+    font-size: 12px;
+    text-align: right;
+}
 .chat{
     height: calc(100vh - 240px);
     display: flex;
