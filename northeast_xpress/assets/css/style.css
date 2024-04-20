@@ -1,0 +1,1335 @@
+body {
+    font-family: "Work Sans", sans-serif;
+    font-style: normal;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+.skip-to-content {
+    position: absolute;
+    left: -9999px;
+}
+
+.skip-to-content:focus {
+    left: auto;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: top .5s ease;
+    background-color: #FFC700;
+    box-shadow: 0 2px 2px rgba(20, 20, 20, 0.212);
+}
+
+.container-fluid {
+    margin: .75rem .5rem;
+}
+
+.navbar-brand,
+.navbar-brand:hover {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #000000;
+    z-index: 1000;
+}
+
+.navbar .navbar-toggler {
+    z-index: 1000;
+    outline: none;
+    border: none;
+}
+
+.bar {
+    display: block;
+    width: 35px;
+    height: 3px;
+    background-color: #383838;
+    margin: 7px auto;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.navbar-toggler.active .bar:nth-child(1) {
+    transform: translateY(5px) rotate(45deg);
+}
+
+.navbar-toggler.active .bar:nth-child(2) {
+    transform: translateY(-5px) rotate(-45deg);
+}
+
+.overlay-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: #F4F4F3;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    z-index: 999;
+    transition: right 0.3s ease;
+}
+
+.overlay-menu a {
+    font-size: 2.5rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding: 0 2.5rem;
+}
+
+.overlay-menu a:hover,
+.overlay-menu a:active {
+    color: #383838;
+}
+
+.nav-link {
+    color: #000000;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: .75rem;
+}
+
+.nav-link:hover,
+.nav-link:active {
+    color: #000000;
+    text-decoration: underline;
+}
+
+#book-now-button,
+#log-out-button {
+    font-weight: 600;
+    color: #FFC700;
+    text-transform: uppercase;
+    background-color: #000000;
+    border-radius: 50px;
+    border: none;
+    padding: 9px 18px;
+    transition: color 0.3s ease;
+}
+
+#book-now-button:hover,
+#book-now-button:active,
+#log-out-button:hover,
+#log-out-button:active {
+    background-color: #383838;
+}
+
+
+/* HERO */
+.background {
+    background-image: url(../img/hero-background.jpg);
+    height: 100vh;
+    width: auto;
+    background-size: cover;
+    background-position: center center;
+}
+
+.background-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+    width: 90%;
+    margin: auto;
+    margin-top: 25vh;
+}
+
+.background-text h2 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #FFC700;
+    width: 90%;
+    margin: 2rem;
+    max-width: 100%;
+}
+
+
+
+/* RATES */
+.rates {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFC700;
+    height: 70vh;
+    text-transform: uppercase;
+    margin: auto;
+}
+
+#price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+#price2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000000;
+    padding-top: 1rem;
+    width: 80%;
+    margin: auto;
+}
+
+#pay {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000000;
+    text-transform: none;
+    padding-top: 1rem;
+}
+
+
+/* ADDRESS */
+.address {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 2rem 0 2rem;
+}
+
+.address h3 {
+    font-weight: 700;
+    font-size: 3.5rem;
+    color: #000000;
+    margin-top: .5rem;
+}
+
+.business-info {
+    width: 100%;
+    justify-content: space-evenly;
+    font-weight: 500;
+    color: #000000;
+    margin: auto;
+}
+
+.phone {
+    width: 50%;
+    padding: 0 2rem;
+}
+
+.phone a {
+    color: #000000;
+}
+
+
+.hours {
+    width: 50%;
+    padding: 0 2rem;
+}
+
+.hours h6,
+.phone h6 {
+    font-weight: 700;
+    margin-top: 1.5rem;
+}
+
+
+/* MAP */
+.map-container {
+    padding: 0;
+    margin-top: 1.5rem;
+    height: 40vh;
+    background-color: #ffffff;
+    border: none;
+}
+
+.map-container iframe {
+    height: 100%;
+    width: 100%;
+    filter: grayscale(100%) brightness(75%) contrast(100%);
+    border: none;
+}
+
+
+
+
+/* INDEX FORM */
+.question-form {
+    background-color: #FFC700;
+}
+
+.parking-lot {
+    padding: 5rem 1rem 0;
+}
+
+.parking-lot h4 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+.parking-lot p {
+    padding-top: 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000000;
+}
+
+
+/* CONTACT INDEX */
+.contact-form {
+    padding: 0 1rem 5rem;
+}
+
+.contact-form label {
+    color: #000000;
+    font-weight: 600;
+}
+
+.contact-form input {
+    background-color: #FFC700;
+}
+
+.contact-form input:focus {
+    background-color: #fede65;
+}
+
+.contact-form textarea {
+    border: 1px solid #000000;
+    border-radius: 25px;
+    width: 100%;
+    font-size: 1rem;
+    padding: .5rem;
+    background-color: #FFC700;
+}
+
+.contact-form textarea:focus {
+    background-color: #fede65;
+    outline: none;
+}
+
+#send-btn {
+    margin-top: .8rem;
+}
+
+
+
+/* LOG IN */
+.login-form {
+    margin: 30vh 1vh 0 0;
+}
+
+.login-form h2 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 3rem;
+    color: #000000;
+}
+
+#login-btn {
+    margin-top: .8rem;
+}
+
+.input-control {
+    margin-bottom: 1rem;
+}
+
+.user-help {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+.new-user,
+.forgot-password {
+    display: inline-block;
+    font-weight: 500;
+    font-size: .8rem;
+    color: #8b8b8b;
+}
+
+.forgot-password a {
+    color: #8b8b8b;
+}
+
+.new-user p a {
+    font-weight: 600;
+    color: #000000;
+    padding-left: .25rem;
+}
+
+
+/* SIGN UP */
+.signup-form {
+    margin: 18vh 1vh 0 0;
+    padding-bottom: 5rem;
+}
+
+.signup-form h2 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 3rem;
+    color: #000000;
+}
+
+.signup-form a {
+    color: #000000;
+    font-weight: 600;
+}
+
+.signup-form a:hover {
+    color: #383838;
+}
+
+.form {
+    padding: 2rem 1rem 1rem;
+    border-radius: 10px;
+    font-size: .9rem;
+}
+
+.form button {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #FFC700;
+    background-color: #000000;
+    border-radius: 50px;
+    border: none;
+    padding: .7rem;
+    width: 100%;
+    transition: color 0.3s ease;
+}
+
+.form button:hover {
+    background-color: #383838;
+}
+
+.input-control label {
+    margin: 0;
+    font-weight: 400;
+    color: #000000;
+}
+
+.input-control input {
+    border: 1px solid #383838;
+    border-radius: 50px;
+    display: block;
+    font-size: 1rem;
+    padding: .5rem;
+    width: 100%;
+}
+
+.input-control input:focus {
+    outline: 0;
+}
+
+.input-control.success input {
+    border-color: #09c372;
+}
+
+.input-control.error input {
+    border-color: #ff3860;
+}
+
+.input-control .error {
+    color: #ff3860;
+    font-size: .8rem;
+    height: .5rem;
+    margin-bottom: .5rem;
+}
+
+.tos {
+    font-size: .8rem;
+}
+
+.tos .col-1 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.tos .col-11 {
+    justify-content: flex-start;
+    padding-top: 1rem;
+}
+
+.agree-hidden {
+    display: none;
+}
+
+.existing-user {
+    display: inline-block;
+    font-weight: 500;
+    font-size: .8rem;
+    color: #8b8b8b;
+}
+
+.existing-user p {
+    margin: auto;
+    text-align: center;
+}
+
+.existing-user p a {
+    font-weight: 600;
+    color: #000000;
+    padding-left: .25rem;
+}
+
+
+
+/* PROFILE */
+.profile-page {
+    margin-bottom: 10vh;
+}
+
+.profile h2 {
+    margin-top: 20vh;
+    text-align: center;
+}
+
+.heading {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #000000;
+    padding-bottom: 1rem;
+}
+
+#horizontal {
+    border-color: #8b8b8b;
+    padding-bottom: 1rem;
+}
+
+#editForm {
+    display: none;
+}
+
+.edit-button {
+    outline: none;
+    border: none;
+}
+
+.edit-button:focus {
+    border: none;
+    outline: none;
+}
+
+.edit-button img {
+    height: 1rem;
+    margin-bottom: .4rem;
+    width: auto;
+}
+
+.profile-box {
+    background-color: #f0f0f0;
+    margin-right: 1rem;
+    padding: 2.5rem 2.5rem;
+    border-radius: 15px;
+}
+
+.tprofile td {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000000;
+    line-height: 2.2;
+}
+
+#displayFirstName,
+#displayLastName,
+#displayPhone,
+#displayPassword {
+    text-transform: capitalize;
+    padding-left: 1rem;
+}
+
+#displayEmail {
+    padding-left: 1rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.save-btn {
+    background-color: #ffc700;
+    border: none;
+    border-radius: 50px;
+    padding: 6px 25px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #000;
+    margin-top: 1rem;
+}
+
+.save-btn:hover {
+    background-color: #fede65;
+}
+
+.save-btn:focus,
+.save-btn:active,
+.cancel-btn:active,
+.cancel-btn:focus {
+    border: none;
+    outline: none;
+}
+
+.cancel-btn {
+    font-weight: 500;
+    font-size: .8rem;
+    color: #8b8b8b;
+    text-transform: uppercase;
+    border: none;
+    margin-top: 1rem;
+}
+
+.cancel-btn:hover {
+    text-decoration: underline;
+}
+
+.form-group label {
+    font-size: .9rem;
+    font-weight: 400;
+}
+
+.form-group input {
+    border: 1px solid #000;
+    border-radius: 50px;
+    border: 1px solid #383838;
+    border-radius: 50px;
+    display: block;
+    font-size: 1rem;
+    padding: .5rem;
+    width: 100%;
+}
+
+.form-group input:focus {
+    outline: 0;
+}
+
+.form-group.success input {
+    border-color: #09c372;
+}
+
+.form-group.error input {
+    border-color: #ff3860;
+}
+
+.form-group.error {
+    color: #ff3860;
+    font-size: .8rem;
+    height: .5rem;
+    margin-bottom: .5rem;
+}
+
+
+
+/* VEHICLES */
+.your-vehicles {
+    padding-bottom: 12rem;
+}
+
+.vehicles h2 {
+    margin-top: 25vh;
+}
+
+.your-vehicles-form {
+    margin: 10rem 0 5rem 0;
+    display: none;
+}
+
+.your-vehicles-form h4 {
+    font-weight: 600;
+}
+
+.closeButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.closeButton {
+    position: relative;
+    background-color: #e2e2e2;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.closeButton:hover {
+    background-color: #ccc;
+}
+
+.closeButton::before,
+.closeButton::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 2px;
+    background-color: black;
+    transform-origin: center;
+}
+
+.closeButton::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.closeButton::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.closeButton:active {
+    border: none;
+    outline: none;
+}
+
+
+.add-vehicle-btn {
+    background-color: none;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: .9rem;
+    margin: .5rem;
+    color: #9b9b9b;
+    transition: color 0.1s ease;
+}
+
+.add-vehicle-btn:hover {
+    background-color: none;
+    border: none;
+    outline: none;
+    color: #000000;
+}
+
+.add-vehicle-btn:active,
+.add-vehicle-btn:focus {
+    outline: none;
+    border: none;
+}
+
+#placeholder {
+    margin-top: .6rem;
+    margin-left: .9rem;
+    font-weight: 500;
+    font-size: .9rem;
+    color: #9b9b9b;
+    float: left;
+}
+
+
+#tbody tr {
+    background-color: #f0f0f0;
+}
+
+#tfoot tr {
+    background-color: none;
+}
+
+.vtable {
+    margin: .5rem auto;
+}
+
+.vtabletext p {
+    display: flex;
+    text-align: left;
+    margin: 0;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: normal;
+}
+
+#tvehicle {
+    background-color: #f0f0f0;
+    border-collapse: collapse;
+}
+
+.vehicles h2,
+.profile h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 3rem;
+    color: #000000;
+    padding-bottom: 2rem;
+}
+
+.vehicles h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 2rem;
+    color: #000000;
+    padding-bottom: 1rem;
+}
+
+.remove-vehicle-btn,
+.remove-vehicle-btn:active,
+.remove-vehicle-btn:focus {
+    border: none;
+    outline: none;
+}
+
+.remove-vehicle-btn img {
+    height: 1rem;
+    width: auto;
+}
+
+.vehicles p {
+    font-weight: 400;
+    text-align: center;
+}
+
+#required {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    padding-top: .5rem;
+    padding-bottom: 1rem;
+}
+
+.input-control.error-truck input {
+    border-color: #ff3860;
+}
+
+.input-control .error-truck {
+    color: #ff3860;
+    font-size: .8rem;
+    height: .5rem;
+    margin-bottom: .5rem;
+}
+
+.submit-btn {
+    font-weight: 600;
+    color: #FFC700;
+    text-transform: none;
+    background-color: #000000;
+    border-radius: 50px;
+    border: none;
+    padding: 9px;
+    width: 100%;
+    transition: color 0.3s ease;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.submit-btn:hover {
+    background-color: #383838;
+}
+
+.submit-btn:active,
+.submit-btn:focus {
+    border: none;
+    outline: none;
+}
+
+
+
+/* FIX TRUCK */
+.fix {
+    margin: auto;
+}
+
+.fix-truck-button {
+    display: flex;
+    margin-bottom: 3rem;
+    font-size: .8rem;
+    font-weight: 500;
+    border: 1px solid #000000;
+    border-radius: 50px;
+    padding: .5rem 2rem;
+    background-color: #FFFFFF;
+    text-transform: uppercase;
+}
+
+.fix-truck-button:hover,
+.fix-truck-button:active {
+    background-color: #ffc700;
+}
+
+.popup-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+    padding: 2rem 3rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.popup-form h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.popup-form p {
+    font-weight: 400;
+}
+
+.popup-form .buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fix-submit-btn {
+    background-color: #FFC700;
+    border: none;
+    border-radius: 25px;
+    padding: 5px 19px;
+    color: #000000;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.fix-submit-btn:hover {
+    background-color: #fede65;
+}
+
+.fix-submit-btn:active,
+.fix-close-btn:active {
+    border: none;
+    outline: none;
+}
+
+.fix-close-btn {
+    background-color: #ffffff;
+    border: none;
+    color: #383838;
+    font-weight: 500;
+    font-size: .9rem;
+    text-transform: uppercase;
+}
+
+.fix-close-btn:hover {
+    color: #000;
+}
+
+.notification {
+    background-color: #404040;
+    color: #ffffff;
+    font-weight: 600;
+    position: fixed;
+    top: 8rem;
+    right: 2rem;
+    padding: 5px 20px;
+    border: 1px solid #f0f0f0;
+    border-radius: 20px;
+    text-transform: uppercase;
+    z-index: 1000;
+}
+
+.notification img {
+    height: 1rem;
+    width: auto;
+    margin-top: .25rem;
+    margin-right: .5rem;
+    float: left;
+}
+
+
+
+/* SWITCH FOR VEHICLE FORM */
+.toggle {
+    position: relative;
+}
+
+.toggle *,
+.toggle *:before,
+.toggle *:after {
+    box-sizing: border-box;
+}
+
+.toggle input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.toggle input[type="checkbox"][disabled]~label {
+    pointer-events: none;
+}
+
+.toggle input[type="checkbox"][disabled]~label .switch {
+    opacity: 0.9;
+}
+
+.toggle input[type="checkbox"]:checked~label .switch:before {
+    content: attr(data-unchecked);
+    left: 0;
+}
+
+.toggle input[type="checkbox"]:checked~label .switch:after {
+    content: attr(data-checked);
+}
+
+.toggle label {
+    -webkit-user-select: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toggle label {
+    flex: 1;
+}
+
+.toggle label .switch {
+    position: relative;
+}
+
+.toggle label .switch:before {
+    content: attr(data-checked);
+    position: absolute;
+    top: 0;
+    font-weight: 600;
+    text-align: center;
+}
+
+.toggle label .switch:after {
+    content: attr(data-unchecked);
+    position: absolute;
+    z-index: 5;
+    text-align: center;
+    font-weight: 600;
+    background: white;
+    transform: translate3d(0, 0, 0);
+}
+
+.toggle input[type="checkbox"]:focus~label .switch:after,
+.toggle input[type="checkbox"]:hover~label .switch:after {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+}
+
+.toggle input[type="checkbox"]:checked~label .switch:after {
+    transform: translate3d(65px, 0, 0);
+}
+
+.toggle input[type="checkbox"]:checked:focus~label .switch:after,
+.toggle input[type="checkbox"]:checked:hover~label .switch:after {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+}
+
+.toggle label .switch {
+    height: 36px;
+    flex: 0 0 134px;
+    border-radius: 50px;
+}
+
+.toggle label .switch:before {
+    left: 67px;
+    font-size: .8rem;
+    line-height: 36px;
+    width: 67px;
+    padding: 0 12px;
+    border-radius: 50px;
+}
+
+.toggle label .switch:after {
+    top: 2px;
+    left: 2px;
+    border-radius: 2px;
+    width: 65px;
+    line-height: 2rem;
+    font-size: .8rem;
+    border-radius: 50px;
+}
+
+.toggle label .switch:hover:after {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+}
+
+.input-control input[type="checkbox"]:focus~label .switch,
+.input-control input[type="checkbox"]:hover~label .switch {
+    background-color: #ffc700;
+}
+
+.input-control input[type="checkbox"]:focus~label .switch:after,
+.input-control input[type="checkbox"]:hover~label .switch:after {
+    color: #ffc700;
+}
+
+.input-control input[type="checkbox"]:checked:focus~label .switch,
+.input-control input[type="checkbox"]:checked:hover~label .switch {
+    background-color: #ffc700;
+}
+
+.input-control label .switch {
+    transition: background-color 0.3s ease-in-out;
+    background: #ffc700;
+}
+
+.input-control label .switch:before {
+    color: rgb(255, 255, 255);
+}
+
+.input-control label .switch:after {
+    -webkit-transition: -webkit-transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    color: #ffc700;
+}
+
+
+
+/* TOS */
+.terms-service {
+    margin-top: 20vh;
+    padding-bottom: 2rem;
+}
+
+.terms h3 {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #000000;
+    margin: auto;
+    padding-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.terms p {
+    padding-bottom: 2rem;
+}
+
+
+
+/* INBOX */
+
+
+
+
+
+/* FOOTER */
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    min-height: 25vh;
+    background-color: #383838;
+}
+
+.red {
+    width: 90%;
+    padding: 2rem 0;
+}
+
+.red .text-center {
+    padding: 1rem 0;
+}
+
+.red h4 {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.25rem;
+    padding-bottom: 1rem;
+}
+
+.red p {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.red a {
+    color: #ffffff;
+}
+
+.fade-in-from-top {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 1s, transform 1s;
+}
+
+.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.copyright {
+    background-color: #383838;
+    color: #FFFFFF;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .9rem;
+}
+
+.messages-container {
+    min-height: calc(100vh - 240px);
+    padding-top: 100px;
+}
+
+.message {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none !important;
+    color: #383838;
+}
+
+.msg-user {
+    font-weight: 600;
+}
+
+.date-time {
+    font-size: 0.8rem;
+}
+
+.chat-message .message-content {
+    width: 500px;
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 130%;
+}
+.chat{
+    height: calc(100vh - 240px);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-body{
+    overflow-y: auto;
+    flex: 1;
+}
+.sender-message .message-content {
+    margin-left: auto;
+}
+.chat-text{
+    margin-bottom: 0;
+    padding: 12px;
+}
+.sender-message .message-content .chat-text {
+    background-color: gold;
+    border-radius: 15px 15px 0 15px;
+}
+.receiver-message .message-content .chat-text {
+    background-color: #dadada;
+    border-radius: 15px 15px 15px 0px;
+}
+
+/* MEDIA QUERIES */
+@media (min-width: 768px) {
+
+    .navbar-brand,
+    .navbar-brand:hover {
+        font-size: 1.25rem;
+    }
+
+    .rates {
+        height: 60vh;
+    }
+
+    #price {
+        font-size: 3rem;
+    }
+
+    #price2 {
+        font-size: 3rem;
+        width: 100%;
+    }
+
+    #pay {
+        padding-top: 3rem;
+    }
+
+    .business-info {
+        display: block;
+    }
+
+    .address {
+        display: flex;
+        align-items: center;
+        padding: 3rem 2rem 2rem 2rem;
+    }
+
+    .address h3 {
+        width: 100%;
+        font-size: 4rem;
+    }
+
+    .map-container {
+        height: 70vh;
+    }
+
+    .question-form {
+        padding: 3rem 2rem 3rem 2rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .background-text {
+        margin-top: 20vh;
+        margin-left: 0;
+    }
+
+    .background-text h2 {
+        font-size: 4.5rem;
+        margin: 4.5rem 3rem;
+    }
+
+    .address h3 {
+        width: 80%;
+        font-size: 4.5rem;
+    }
+
+    /* CONTACT */
+    .contact-form {
+        padding: 5rem 2rem 10rem 0;
+    }
+
+
+    /* PARKING LOT */
+    .parking-lot {
+        padding: 5rem 0 10rem 3rem;
+    }
+
+    .profile-box {
+        padding: 3rem;
+    }
+
+    .fix-truck-button {
+        margin-right: 10rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .background-text h2 {
+        font-size: 5rem;
+        margin: 4.5rem 3rem;
+    }
+
+    .address h3 {
+        width: 60%;
+    }
+
+    /* CONTACT */
+    .contact-form {
+        padding: 8rem 4rem 10rem 1rem;
+    }
+
+
+    /* PARKING LOT */
+    .parking-lot {
+        padding: 8rem 1rem 10rem 5rem;
+    }
+
+    .profile-box {
+        padding: 4rem;
+    }
+}
