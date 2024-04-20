@@ -5,7 +5,7 @@ $info = "";
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Define recipient email address
-    $to = "dryvan@live.com,anas14529@gmail.com";
+    $to = "dryvan@live.com";
 
     // Subject
     $subject = "Form Submission";
@@ -33,8 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ";
 
     // Set additional headers
-    $headers = "From: webmaster@f4futuretech.com" . "\r\n";
-    $headers .= "Reply-To: {$_POST['email']}" . "\r\n";
+    $headers = "Reply-To: {$_POST['email']}" . "\r\n";
     $headers .= "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1" . "\r\n";
 
