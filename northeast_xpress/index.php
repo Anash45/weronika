@@ -5,7 +5,7 @@ $info = "";
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Define recipient email address
-    $to = "dryvan@live.com";
+    $to = "dryvan@live.com,anas14529@gmail.com";
 
     // Subject
     $subject = "Form Submission";
