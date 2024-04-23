@@ -26,7 +26,7 @@ body {
 }
 
 .container-fluid {
-    margin: .75rem 0 !important;
+    margin: .75rem 0.5rem;
 }
 
 .navbar-brand,
@@ -1244,22 +1244,28 @@ body {
 .cursor-pointer {
     cursor: pointer;
 }
-.text-black{
+
+.text-black {
     color: #000000;
 }
-.tprofile th, .tprofile td{
+
+.tprofile th,
+.tprofile td {
     padding: 0 0.75rem;
     vertical-align: middle;
     line-height: 170%;
 }
-.message{
+
+.message {
     background-color: #f0f0f0 !important;
     border-radius: 12px !important;
     color: #000000 !important;
 }
-.message:hover{
+
+.message:hover {
     color: #383838 !important;
 }
+
 .datepicker-days th,
 .datepicker-days td {
     padding: 5px 10px;
@@ -1345,22 +1351,20 @@ body {
 .datepicker-title {
     font-weight: 700 !important;
 }
-main{
+
+main {
     min-height: calc(100vh - 246px);
 }
+
 .table#tvehicle,
 .table#tvehicle th,
-.table#tvehicle td
-{
-border: 0 !important;
+.table#tvehicle td {
+    border: 0 !important;
 }
 
 /* MEDIA QUERIES */
 @media (min-width: 768px) {
 
-    .container-fluid {
-        margin: .75rem 0 !important;
-    }
     .navbar-brand,
     .navbar-brand:hover {
         font-size: 1.25rem;
@@ -1466,5 +1470,12 @@ border: 0 !important;
 
     .profile-box {
         padding: 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .container-fluid {
+        margin: .75rem 0 !important;
     }
 }
