@@ -1275,6 +1275,18 @@ body {
     width: 100%;
     border: 1px solid #737373;
 }
+
+.datepicker th, .datepicker td{
+    text-align: center;
+    color: #FFFFFF !important;
+}
+.datepicker td.day{
+    color: #FFFFFF !important;
+}
+.datepicker td.new.day, .datepicker td.old.day{
+    color: #d3ac1e !important;
+}
+
 /* MEDIA QUERIES */
 @media (min-width: 768px) {
 

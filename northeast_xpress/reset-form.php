@@ -4,6 +4,7 @@ require_once './includes/db_conn.php';
 $info = '';
 
 // Check if form is submitted
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Define variables and initialize with empty values
     $email = "";
@@ -22,14 +23,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Update OTP in the database
         $update_query = "UPDATE users SET otp = '$otp' WHERE Email = '$email'";
         if ($conn->query($update_query) === TRUE) {
+            // Read OTP template from file
+            $templateFile = 'otp-template.html';
+            $htmlContent = file_get_contents($templateFile);
+
+            // Replace placeholder with OTP
+            $htmlContent = str_replace('{otp_code}', $otp, $htmlContent);
+
             // Send OTP to the email address
             $to = $email;
             $subject = 'Reset Password OTP';
-            $message = 'Your OTP for resetting the password is: ' . $otp;
             $headers = 'Reply-To: info@f4futuretech.com' . "\r\n" .
-                       'X-Mailer: PHP/' . phpversion();
+                'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                'MIME-Version: 1.0' . "\r\n" .
+                'Content-type:text/html;charset=UTF-8';
 
-            if (mail($to, $subject, $message, $headers)) {
+            if (mail($to, $subject, $htmlContent, $headers)) {
                 // Email sent successfully
                 $_SESSION['reset_email'] = $email;
                 header("Location: reset-password.php");
@@ -48,10 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+
 // Close connection
 $conn->close();
 ?>
-
 <html lang="en">
 
     <head>

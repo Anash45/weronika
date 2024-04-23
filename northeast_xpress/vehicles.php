@@ -249,7 +249,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         }
                                     } else {
                                         // No vehicles found
-                                        $vehiclesHTML = '<tr><td colspan="2">No vehicles found.</td></tr>';
+                                        $vehiclesHTML = '<p>No vehicles found.</p>';
                                     }
                                     echo $vehiclesHTML;
                                     // Close connection
@@ -301,7 +301,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="d-flex flex-column mb-3">
                     <label for="message">Vehicle Issue:</label>
-                    <textarea id="message" name="message" class="rounded-3 fix-inp mt-1" rows="4" cols="40" required></textarea>
+                    <textarea id="message" name="message" class="rounded-3 fix-inp mt-1" rows="4" cols="40"
+                        required></textarea>
                 </div>
                 <div class="buttons">
                     <button type="button" class="fix-close-btn" onclick="closeForm()">Close</button>
@@ -354,7 +355,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $(document).ready(function () {
                 $('.request').click(function () {
                     // Open the date picker associated with the clicked button
-                    $('.datepicker').datepicker('show');
+                    $('.datepicker').datepicker('show', {
+                        dayNamesMin: ["S", "M", "T", "W", "T", "F", "S"]
+                    });
                 });
 
                 // Capture the date selection event for all datepickers
@@ -396,7 +399,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             function padZero(num) {
                 return (num < 10 ? '0' : '') + num;
             }
-
         </script>
     </body>
 

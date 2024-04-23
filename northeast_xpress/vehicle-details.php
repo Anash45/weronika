@@ -14,21 +14,7 @@ if (!isset($_GET['id'])) {
     header("Location: vehicles.php");
     exit();
 }
-if (isset($_GET['id']) && isset($_GET['approve']) && isAdmin()) {
-    // Get the values of id and approve from the URL
-    $id = $_GET['id'];
-    $approve = $_GET['approve'];
 
-    // Construct the SQL UPDATE statement
-    $sql = "UPDATE vehicles SET approved = '$approve' WHERE id = '$id'";
-
-    // Execute the SQL statement
-    if ($conn->query($sql) === TRUE) {
-        $info = "<div class='alert alert-success'>Vehicle status updated successfully</div>";
-    } else {
-        $info = "<div class='alert alert-danger'>Error updating record: " . $conn->error . "</div>";
-    }
-}
 $vehicleID = $_GET['id'];
 
 ?>

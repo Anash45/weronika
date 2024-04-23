@@ -30,12 +30,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($conn->query($insert_query) === TRUE) {
             // Success
             $info = "<p class='alert alert-success'>User registered successfully.</p>";
+
+            // Send welcome email to the user
+            $templateFile = 'welcome-template.html';
+            $htmlContent = file_get_contents($templateFile);
+
+            // Replace placeholders with user's information
+            $htmlContent = str_replace('{first_name}', $fname, $htmlContent);
+            $htmlContent = str_replace('{last_name}', $lname, $htmlContent);
+            $htmlContent = str_replace('{email}', $email, $htmlContent);
+
+            // Send email to the user
+            $to = $email;
+            $subject = 'Welcome to Our Website';
+            $headers = 'Reply-To: info@f4futuretech.com' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                'MIME-Version: 1.0' . "\r\n" .
+                'Content-type:text/html;charset=UTF-8';
+
+            if (mail($to, $subject, $htmlContent, $headers)) {
+                // Email sent successfully
+            } else {
+                // Failed to send email
+                $info .= "<div class='alert alert-danger'>Failed to send welcome email.</div>";
+            }
         } else {
             // Error
             $info = "<p class='alert alert-danger'>Error: " . $conn->error . "</p>";
         }
     }
 }
+
 
 // Close connection
 $conn->close();

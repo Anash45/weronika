@@ -10,6 +10,54 @@ if (isAdmin()) {
         header("Location: inbox.php");
         exit;
     }
+    if (isset($_GET['id']) && isset($_GET['approve']) && isAdmin()) {
+        // Get the values of id and approve from the URL
+        $id = $_GET['id'];
+        $approve = $_GET['approve'];
+
+        // Construct the SQL UPDATE statement
+        $sql = "UPDATE vehicles SET approved = '$approve' WHERE id = '$id'";
+
+        // Execute the SQL statement
+        if ($conn->query($sql) === TRUE) {
+            $info = "<div class='alert alert-success'>Vehicle status updated successfully</div>";
+
+            // Get owner's email
+            $email_query = "SELECT Email FROM users WHERE UserID = (SELECT UserID FROM vehicles WHERE id = '$id')";
+            $email_result = $conn->query($email_query);
+
+            if ($email_result->num_rows > 0) {
+                $row = $email_result->fetch_assoc();
+                $owner_email = $row['Email'];
+
+                // Read payment template from file
+                $templateFile = 'payment-template.html';
+                $htmlContent = file_get_contents($templateFile);
+
+                // Replace placeholder with profile URL
+                $profile_url = 'https://example.com/profile'; // Replace with the actual profile URL
+                $htmlContent = str_replace('{profile_url}', $profile_url, $htmlContent);
+
+                // Send email to the owner of the vehicle
+                $to = $owner_email;
+                $subject = 'Vehicle Status Updated';
+                $headers = 'Reply-To: info@f4futuretech.com' . "\r\n" .
+                    'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                    'MIME-Version: 1.0' . "\r\n" .
+                    'Content-type:text/html;charset=UTF-8';
+
+                if (mail($to, $subject, $htmlContent, $headers)) {
+                    // Email sent successfully
+                } else {
+                    // Failed to send email
+                    $info .= "<div class='alert alert-danger'>Failed to send email to the owner.</div>";
+                }
+            }
+        } else {
+            $info = "<div class='alert alert-danger'>Error updating record: " . $conn->error . "</div>";
+        }
+    }
+
 } else {
     // If user, get UserID from the session
     if (isUser()) {
@@ -46,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
 } elseif (isset($_GET['requestId'])) {
     $requestId = $_GET['requestId'];
     $selectedDate = $_GET['selectedDate'];
-    $message = 'Requesting parking space starting <b>' . date('F d, Y', strtotime($selectedDate)) . '</b> for this <a href="vehicle-details.php?id=' . $vehicleID . '" class="font-weight-bold">vehicle</a>.';
+    $message = 'Requesting parking space starting <b>' . date('F d, Y', strtotime($selectedDate)) . '</b> for this <a href="vehicle-details.php?id=' . $vehicleID . '" class="font-weight-bold text-dark">vehicle</a>.';
     sendMessage($message, 1, $requestId);
     header("Location: message.php");
 }
@@ -112,7 +160,11 @@ function sendMessage($message, $isRequest = 0, $requestId = 0)
                             $sql2 = "SELECT * FROM users WHERE UserID = '$userID'";
                             $result2 = $conn->query($sql2);
                             $row2 = $result2->fetch_assoc();
-                            $username = $row2['FirstName'];
+                            if (isAdmin()) {
+                                $username = $row2['FirstName'];
+                            } else {
+                                $username = 'Northeast Xpress Inc.';
+                            }
                             ?>
                             <div class="chat-header p-2 border-bottom d-flex align-items-center ">
                                 <a href="vehicles.php" class="btn fw-bold text-secondary text-white"><i
@@ -161,11 +213,19 @@ function sendMessage($message, $isRequest = 0, $requestId = 0)
                                         } elseif ($row12['approved'] == 1) {
                                             $approved = 'btn-approved';
                                         }
+                                        if (isAdmin()) {
+
+                                            $buttons = '<a href="message.php?UserID=' . $userID . '&id=' . $row['requestID'] . '&approve=1" class="btn btn-pending ' . $approved . ' mb-2 btn-sm px-4">APPROVE</a>
+                                            <a href="message.php?UserID=' . $userID . '&id=' . $row['requestID'] . '&approve=2" class="btn btn-pending ' . $declined . ' btn-sm px-4">DECLINE</a>';
+                                        } else {
+
+                                            $buttons = '<span class="btn btn-pending ' . $approved . ' mb-2 btn-sm px-4">APPROVE</span>
+                                            <span class="btn btn-pending ' . $declined . ' btn-sm px-4">DECLINE</span>';
+                                        }
                                         echo '
                                 <div class="chat-message sender-message">
                                     <div class="mr-auto d-flex flex-column w-fit mb-2">
-                                        <a href="vehicle-details.php?id=' . $row['requestID'] . '&approve=1" class="btn btn-pending '.$approved.' mb-2 btn-sm px-4">APPROVE</a>
-                                        <a href="vehicle-details.php?id=' . $row['requestID'] . '&approve=2" class="btn btn-pending '.$declined.' btn-sm px-4">DECLINE</a>
+                                        ' . $buttons . '
                                     </div>
                                 </div>';
                                     }
