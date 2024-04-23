@@ -55,7 +55,7 @@ if (isAdmin()) {
                         'Content-type:text/html;charset=UTF-8';
 
                     if (mail($to, $subject, $htmlContent, $headers)) {
-                        echo 111;
+                        // echo 111;
                         // Email sent successfully
                     } else {
                         // Failed to send email
