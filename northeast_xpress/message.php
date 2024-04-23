@@ -56,6 +56,7 @@ if (isAdmin()) {
                         'Content-type:text/html;charset=UTF-8';
 
                     if (mail($to, $subject, $htmlContent, $headers)) {
+                        echo 111;
                         // Email sent successfully
                     } else {
                         // Failed to send email
@@ -124,10 +125,10 @@ function sendMessage($message, $isRequest = 0, $requestId = 0)
     }
 
     // Construct the SQL INSERT statement
-    $sql = "INSERT INTO messages (UserID, MessageContent, sender, isRequest, requestID) VALUES ('$userID', '$message', '$sender', '$isRequest', '$requestId')";
+    $sql22 = "INSERT INTO messages (UserID, MessageContent, sender, isRequest, requestID) VALUES ('$userID', '$message', '$sender', '$isRequest', '$requestId')";
 
     // Execute the SQL statement
-    if ($conn->query($sql) !== TRUE) {
+    if ($conn->query($sql22) !== TRUE) {
         header("Location: " . $_SERVER['REQUEST_URI']);
     }
 }
@@ -161,9 +162,11 @@ function sendMessage($message, $isRequest = 0, $requestId = 0)
         <!-- MAIN -->
         <main class="messages-container">
             <div class="container">
-                <div class="col-md-8 col-12 messages mx-auto pb-3">
+                <div class="col-md-8 col-12 messages mx-auto pb-3 py-5">
                     <div class="chat border">
                         <?php
+
+                        $username = 'NORTHEAST XPRESS INC.';
                         $sql = "SELECT * FROM messages WHERE UserID = '$userID' ORDER BY MessageID";
                         $result = $conn->query($sql);
                         $row = $result->fetch_assoc();
@@ -173,19 +176,19 @@ function sendMessage($message, $isRequest = 0, $requestId = 0)
                             $result2 = $conn->query($sql2);
                             $row2 = $result2->fetch_assoc();
                             if (isAdmin()) {
-                                $username = $row2['FirstName'];
-                            } else {
-                                $username = 'Northeast Xpress Inc.';
+                                $username = $row2['FirstName'] . ' ' . $row2['LastName'];
                             }
-                            ?>
-                            <div class="chat-header p-2 border-bottom d-flex align-items-center ">
-                                <a href="vehicles.php" class="btn fw-bold text-secondary text-white"><i
-                                        class="fa fa-chevron-left"></i></a>
-                                <h5 class="mb-0 font-weight-bold"><?php echo $username; ?></h5>
-                            </div>
-                            <div class="chat-body p-2" id="chat-body">
-                                <?php
-                                while ($row = $result->fetch_assoc()) {
+                        }
+                        ?>
+                        <div class="chat-header p-2 border-bottom d-flex align-items-center ">
+                            <a href="vehicles.php" class="btn fw-bold text-secondary text-white"><i
+                                    class="fa fa-chevron-left text-black"></i></a>
+                            <h5 class="mb-0 font-weight-bold text-uppercase text-black"><?php echo $username; ?></h5>
+                        </div>
+                        <div class="chat-body p-2" id="chat-body">
+                            <?php
+                            if (!empty($row)) {
+                                do {
                                     $msgID = $row['MessageID'];
                                     // Check if the sender is admin or user
                                     if (isAdmin()) {
@@ -194,25 +197,25 @@ function sendMessage($message, $isRequest = 0, $requestId = 0)
                                     }
                                     if (isAdmin() && $row['sender'] == 'admin') {
                                         echo '<div class="chat-message sender-message">
-                                        <div class="message-content">
-                                            <p class="chat-text">' . $row['MessageContent'] . '</p>
-                                            <p class="chat-date">' . date('h:i:s | d M, Y', strtotime($row['Timestamp'])) . '</p>
-                                        </div>
-                                    </div>';
+                                            <div class="message-content">
+                                                <p class="chat-text">' . $row['MessageContent'] . '</p>
+                                                <p class="chat-date">' . date('h:i:s | d M, Y', strtotime($row['Timestamp'])) . '</p>
+                                            </div>
+                                        </div>';
                                     } elseif (isUser() && $row['sender'] == 'user') {
                                         echo '<div class="chat-message sender-message">
-                                        <div class="message-content">
-                                            <p class="chat-text">' . $row['MessageContent'] . '</p>
-                                            <p class="chat-date">' . date('h:i:s | d M, Y', strtotime($row['Timestamp'])) . '</p>
-                                        </div>
-                                    </div>';
+                                            <div class="message-content">
+                                                <p class="chat-text">' . $row['MessageContent'] . '</p>
+                                                <p class="chat-date">' . date('h:i:s | d M, Y', strtotime($row['Timestamp'])) . '</p>
+                                            </div>
+                                        </div>';
                                     } else {
                                         echo '<div class="chat-message receiver-message">
-                                        <div class="message-content">
-                                            <p class="chat-text">' . $row['MessageContent'] . '</p>
-                                            <p class="chat-date">' . date('h:i:s | d M, Y', strtotime($row['Timestamp'])) . '</p>
-                                        </div>
-                                    </div>';
+                                            <div class="message-content">
+                                                <p class="chat-text">' . $row['MessageContent'] . '</p>
+                                                <p class="chat-date">' . date('h:i:s | d M, Y', strtotime($row['Timestamp'])) . '</p>
+                                            </div>
+                                        </div>';
                                     }
                                     if ($row['isRequest'] == 1) {
                                         $requestId1 = $row['requestID'];
@@ -228,22 +231,22 @@ function sendMessage($message, $isRequest = 0, $requestId = 0)
                                         if (isAdmin()) {
 
                                             $buttons = '<a href="message.php?UserID=' . $userID . '&id=' . $row['requestID'] . '&approve=1" class="btn btn-pending ' . $approved . ' mb-2 btn-sm px-4">APPROVE</a>
-                                            <a href="message.php?UserID=' . $userID . '&id=' . $row['requestID'] . '&approve=2" class="btn btn-pending ' . $declined . ' btn-sm px-4">DECLINE</a>';
+                                                <a href="message.php?UserID=' . $userID . '&id=' . $row['requestID'] . '&approve=2" class="btn btn-pending ' . $declined . ' btn-sm px-4">DECLINE</a>';
                                         } else {
 
                                             $buttons = '<span class="btn btn-pending ' . $approved . ' mb-2 btn-sm px-4">APPROVE</span>
-                                            <span class="btn btn-pending ' . $declined . ' btn-sm px-4">DECLINE</span>';
+                                                <span class="btn btn-pending ' . $declined . ' btn-sm px-4">DECLINE</span>';
                                         }
                                         echo '
-                                <div class="chat-message sender-message">
-                                    <div class="mr-auto d-flex flex-column w-fit mb-2">
-                                        ' . $buttons . '
-                                    </div>
-                                </div>';
+                                    <div class="chat-message sender-message">
+                                        <div class="mr-auto d-flex flex-column w-fit mb-2">
+                                            ' . $buttons . '
+                                        </div>
+                                    </div>';
                                     }
-                                }
-                        }
-                        ?>
+                                } while ($row = $result->fetch_assoc());
+                            }
+                            ?>
                         </div>
                         <div class="chat-footer">
                             <form method="post" action="" class="d-flex mb-0">

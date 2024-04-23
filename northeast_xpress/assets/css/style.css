@@ -628,7 +628,7 @@ body {
 
 /* VEHICLES */
 .your-vehicles {
-    padding-bottom: 12rem;
+    padding-bottom: 4rem;
 }
 
 .vehicles h2 {
@@ -1197,109 +1197,162 @@ body {
     font-size: 14px;
     line-height: 130%;
 }
-.chat-date{
+
+.chat-date {
     font-size: 12px;
     text-align: right;
 }
-.chat{
+
+.chat {
     height: calc(100vh - 240px);
     display: flex;
     flex-direction: column;
 }
 
-.chat-body{
+.chat-body {
     overflow-y: auto;
     flex: 1;
 }
+
 .sender-message .message-content {
     margin-left: auto;
 }
-.chat-text{
+
+.chat-text {
     margin-bottom: 0;
     padding: 12px;
 }
+
 .sender-message .message-content .chat-text {
     background-color: gold;
     border-radius: 15px 15px 0 15px;
 }
+
 .receiver-message .message-content .chat-text {
     background-color: #dadada;
     border-radius: 15px 15px 15px 0px;
 }
-.w-fit{
+
+.w-fit {
     width: fit-content !important;
 }
-.v-table-right{
+
+.v-table-right {
     font-size: 14px !important;
 }
-.cursor-pointer{
+
+.cursor-pointer {
     cursor: pointer;
 }
-.datepicker-days th, .datepicker-days td{
-    padding: 5px;
+.text-black{
+    color: #000000;
+}
+.tprofile th, .tprofile td{
+    padding: 0 0.75rem;
+    vertical-align: middle;
+    line-height: 170%;
+}
+.message{
+    background-color: #f0f0f0 !important;
+    border-radius: 12px !important;
+    color: #000000 !important;
+}
+.message:hover{
+    color: #383838 !important;
+}
+.datepicker-days th,
+.datepicker-days td {
+    padding: 5px 10px;
     cursor: pointer;
     background-color: #ffc700;
 }
-.datepicker{
+
+.datepicker {
+    border-radius: 15px;
     top: 50% !important;
     left: 50% !important;
-    transform: translate(-50%,-50%) !important;
-    padding: 10px !important;
+    transform: translate(-50%, -50%) !important;
+    padding: 20px !important;
     background-color: #ffc700;
 }
+
 .btn-approve,
 .btn-pending,
-.btn-decline{
+.btn-decline {
     border-radius: 999px;
     font-weight: 500;
 }
-.btn-pending{
+
+.btn-pending {
     background-color: #F0F0F0;
 }
-.btn-approved{
+
+.btn-approved {
     background-color: #69CC78;
     color: #FFF;
 }
-.btn-declined{
+
+.btn-declined {
     background-color: #E35151;
     color: #FFFFFF;
 }
-.rounded-3{
+
+.rounded-3 {
     border-radius: 20px;
 }
-.back-icon{
+
+.back-icon {
     font-size: 24px !important;
 }
 
-.fix-inp{
+.fix-inp {
     width: 100%;
     border: 1px solid #737373;
 }
-.datepicker thead th{
+
+.datepicker thead th {
     font-weight: 500;
 }
-.datepicker th, .datepicker td{
+
+.datepicker th,
+.datepicker td {
     text-align: center;
     color: #FFFFFF !important;
 }
-.datepicker td.day{
+
+.datepicker td.day {
     color: #FFFFFF !important;
 }
-.datepicker td.new.day, .datepicker td.old.day{
+
+.datepicker td.new.day,
+.datepicker td.old.day {
     color: #d3ac1e !important;
 }
-.chat-text a{
+
+.chat-text a {
     color: #000 !important;
 }
-.ib-title{
+
+.ib-title {
     margin-top: 40px;
     margin-bottom: 30px !important;
     font-size: 54px !important;
     font-weight: 900;
 }
-.datepicker-title{
+
+.datepicker-title {
     font-weight: 700 !important;
 }
+main{
+    min-height: calc(100vh - 246px);
+}
+.table#tvehicle,
+.table#tvehicle th,
+.table#tvehicle td
+{
+border: 0 !important;
+}
+
 /* MEDIA QUERIES */
 @media (min-width: 768px) {
 

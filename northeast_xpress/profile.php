@@ -176,8 +176,8 @@ $result->close();
                                 <div class="error"></div>
                             </div>
                             <!-- Save and Cancel buttons -->
-                            <div class="buttons justify-content-between align-items-center mt-4">
-                                <span onclick="cancelEdit();" class="text-decoration-none fw-bold">CANCEL</span>
+                            <div class="buttons justify-content-between align-items-center mt-4 pt-3">
+                                <span onclick="cancelEdit();" class="text-decoration-none fw-bold cursor-pointer">CANCEL</span>
                                 <button type="submit" class="save-btn w-fit mt-0">Save Changes</button>
                             </div>
                         </form>

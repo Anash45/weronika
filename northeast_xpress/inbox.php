@@ -34,7 +34,7 @@ if (!isLoggedIn()) {
         <main class="messages-container">
             <div class="container">
                 <div class="col-md-8 col-12 messages mx-auto">
-                    <h2 class="mb-4 font-weight-bold text-center ib-title">Your Messages</h2>
+                    <h2 class="mb-4 pb-3 font-weight-bold text-center text-black ib-title">Your Messages</h2>
                     <?php
                     $sql = "SELECT *
                     FROM messages
@@ -52,7 +52,7 @@ if (!isLoggedIn()) {
                             $result1 = $conn->query($sql1);
                             $row1 = $result1->fetch_assoc();
                             $status = ($row['read'] == 0) ? 'new message' : 'read';
-                            echo '<a href="message.php?UserID=' . $UserID . '" class="message rounded bg-light shadow-sm px-3 py-3 mb-3 w-100">
+                            echo '<a href="message.php?UserID=' . $UserID . '" class="message rounded shadow-sm px-3 py-3 mb-3 w-100">
                         <span class="msg-user">' . $row1['FirstName'] . ' ' . $row1['LastName'] . '</span>
                         <span class="date-time">' . $status . '</span>
                     </a>';

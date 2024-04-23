@@ -85,7 +85,7 @@ $vehicleID = $_GET['id'];
                                     echo '<tr>';
                                     if (array_key_exists($key, $row)) {
                                         $properName = $keyToNameMap[$key];
-                                        echo '<th>' . $properName . ':</th>';
+                                        echo '<td>' . $properName . ':</td>';
                                         echo '<td>' . $row[$key] . '</td>';
                                     }
                                     echo '</tr>';
