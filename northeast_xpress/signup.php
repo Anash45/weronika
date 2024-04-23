@@ -49,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'Content-type:text/html;charset=UTF-8';
 
             if (mail($to, $subject, $htmlContent, $headers)) {
+                $info .= "<div class='alert alert-success'>Success to send welcome email.</div>";
                 // Email sent successfully
             } else {
                 // Failed to send email
