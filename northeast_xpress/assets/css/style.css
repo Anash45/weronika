@@ -1286,7 +1286,9 @@ body {
 .datepicker td.new.day, .datepicker td.old.day{
     color: #d3ac1e !important;
 }
-
+.chat-text a{
+    color: #000 !important;
+}
 /* MEDIA QUERIES */
 @media (min-width: 768px) {
 
