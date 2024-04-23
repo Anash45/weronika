@@ -12,19 +12,49 @@
         </button>
         <!-- MENU -->
         <div id="overlayMenu" class="overlay-menu" aria-hidden="true">
-            <a href="index.php"><!--index logged in--> Home </a>
+            <p class="nav-item">
+                <a class="nav-link" href="index.php"> Home </a>
+            </p>
             <?php
-            if (isUser()) {
+            if (isLoggedIn()) {
                 ?>
-                <a href="profile.php"><!--profile of user logged in--> Profile </a>
-                <a href="vehicles.php"> Your Vehicles </a>
-                <a href="inbox.php"> Inbox </a>
-                <a href="login.php"> Log Out </a>
+                <p class="nav-item">
+                    <a class="nav-link" href="profile.php"> Profile </a>
+                </p>
+                <?php
+                if (isAdmin()) {
+                    ?>
+                    <p class="nav-item">
+                        <a class="nav-link" href="vehicles.php"> Vehicles </a>
+                    </p>
+                    <p class="nav-item">
+                        <a class="nav-link" href="inbox.php"> Inbox </a>
+                    </p>
+                    <?php
+                } else {
+                    ?>
+                    <p class="nav-item">
+                        <a class="nav-link" href="vehicles.php"> Your Vehicles </a>
+                    </p>
+                    <p class="nav-item">
+                        <a class="nav-link" href="message.php"> Inbox </a>
+                    </p>
+                    <?php
+                }
+                ?>
+                
+                <p class="nav-item">
+                        <a class="nav-link" href="logout.php"> Logout </a>
+                    </p>
                 <?php
             } else {
                 ?>
-                <a href="login.php"> Log In </a>
-                <a href="signup.php"> Book Now </a>
+                <p class="nav-item">
+                    <a class="nav-link" href="login.php"> Log in </a>
+                </p>
+                <p class="nav-item">
+                    <a class="nav-link" href="signup.php"> Book Now </a>
+                </p>
                 <?php
             }
             ?>

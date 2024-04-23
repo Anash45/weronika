@@ -1275,7 +1275,9 @@ body {
     width: 100%;
     border: 1px solid #737373;
 }
-
+.datepicker thead th{
+    font-weight: 500;
+}
 .datepicker th, .datepicker td{
     text-align: center;
     color: #FFFFFF !important;
@@ -1288,6 +1290,15 @@ body {
 }
 .chat-text a{
     color: #000 !important;
+}
+.ib-title{
+    margin-top: 40px;
+    margin-bottom: 30px !important;
+    font-size: 54px !important;
+    font-weight: 900;
+}
+.datepicker-title{
+    font-weight: 700 !important;
 }
 /* MEDIA QUERIES */
 @media (min-width: 768px) {

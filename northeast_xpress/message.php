@@ -26,31 +26,41 @@ if (isAdmin()) {
             $email_query = "SELECT Email FROM users WHERE UserID = (SELECT UserID FROM vehicles WHERE id = '$id')";
             $email_result = $conn->query($email_query);
 
-            if ($email_result->num_rows > 0) {
-                $row = $email_result->fetch_assoc();
-                $owner_email = $row['Email'];
+            if ($approve == 1) {
+                if ($email_result->num_rows > 0) {
+                    $row = $email_result->fetch_assoc();
+                    $owner_email = $row['Email'];
 
-                // Read payment template from file
-                $templateFile = 'payment-template.html';
-                $htmlContent = file_get_contents($templateFile);
+                    // Replace placeholder with profile URL
+                    $profile_url = 'https://portfolio.f4futuretech.com/northeast/northeast_xpress/profile.php'; // Replace with the actual profile URL
 
-                // Replace placeholder with profile URL
-                $profile_url = 'https://example.com/profile'; // Replace with the actual profile URL
-                $htmlContent = str_replace('{profile_url}', $profile_url, $htmlContent);
+                    // Read payment template from file
+                    $templateFile = 'payment-template.html';
+                    $htmlContent = file_get_contents($templateFile);
 
-                // Send email to the owner of the vehicle
-                $to = $owner_email;
-                $subject = 'Vehicle Status Updated';
-                $headers = 'Reply-To: info@f4futuretech.com' . "\r\n" .
-                    'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                    'MIME-Version: 1.0' . "\r\n" .
-                    'Content-type:text/html;charset=UTF-8';
+                    // Replace placeholder with OTP
+                    $htmlContent = str_replace('{profile_url}', $profile_url, $htmlContent);
 
-                if (mail($to, $subject, $htmlContent, $headers)) {
-                    // Email sent successfully
-                } else {
-                    // Failed to send email
-                    $info .= "<div class='alert alert-danger'>Failed to send email to the owner.</div>";
+                    $profile_url = "";
+                    // Replace placeholder with OTP
+                    $htmlContent = str_replace('{otp_code}', $otp, $htmlContent);
+
+                    $htmlContent = str_replace('{profile_url}', $profile_url, $htmlContent);
+
+                    // Send email to the owner of the vehicle
+                    $to = $owner_email;
+                    $subject = 'Vehicle Status Updated';
+                    $headers = 'Reply-To: info@f4futuretech.com' . "\r\n" .
+                        'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                        'MIME-Version: 1.0' . "\r\n" .
+                        'Content-type:text/html;charset=UTF-8';
+
+                    if (mail($to, $subject, $htmlContent, $headers)) {
+                        // Email sent successfully
+                    } else {
+                        // Failed to send email
+                        $info .= "<div class='alert alert-danger'>Failed to send email to the owner.</div>";
+                    }
                 }
             }
         } else {
@@ -96,6 +106,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
     $selectedDate = $_GET['selectedDate'];
     $message = 'Requesting parking space starting <b>' . date('F d, Y', strtotime($selectedDate)) . '</b> for this <a href="vehicle-details.php?id=' . $vehicleID . '" class="font-weight-bold text-dark">vehicle</a>.';
     sendMessage($message, 1, $requestId);
+    $sql21 = "UPDATE vehicles SET approved = 3 WHERE id = '$requestId'";
+    $conn->query($sql21);
     header("Location: message.php");
 }
 

@@ -34,7 +34,7 @@ if (!isLoggedIn()) {
         <main class="messages-container">
             <div class="container">
                 <div class="col-md-8 col-12 messages mx-auto">
-                    <h2 class="mb-4 font-weight-bold text-center">Messages</h2>
+                    <h2 class="mb-4 font-weight-bold text-center ib-title">Your Messages</h2>
                     <?php
                     $sql = "SELECT *
                     FROM messages

@@ -228,11 +228,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             $vehiclesHTML .= '<tr><td><div class="container-fluid vtable" id="inputvehicle"><div class="row"><div class="col-sm-12 vtabletext">';
                                             $vehiclesHTML .= '<p class="vehicleDescription">' . $row['companyName'] . ' ' . $row['truckMake'] . ' ' . $row['truckPlateNumber'] . '</p>';
                                             $vehiclesHTML .= '</div></td><td><div class="col-sm-12 text-right vtableicon v-table-right">';
+                                            $status = '';
                                             if ($row['approved'] == 1) {
                                                 $status = '<b class="text-success mr-2">APPROVED</b>';
                                             } else if ($row['approved'] == 2) {
                                                 $status = '<b class="text-danger mr-2">DECLINED</b>';
-                                            } else {
+                                            } else if ($row['approved'] == 3) {
                                                 $status = '<b class="text-warning mr-2">PENDING</b>';
                                             }
                                             $vehiclesHTML .= $status;
@@ -356,8 +357,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $('.request').click(function () {
                     // Open the date picker associated with the clicked button
                     $('.datepicker').datepicker('show', {
-                        dayNamesMin: ["S", "M", "T", "W", "T", "F", "S"]
+                        clearBtn: true,
                     });
+
+                    $('.datepicker-title').html('Select Start Date').show();
                 });
 
                 // Capture the date selection event for all datepickers

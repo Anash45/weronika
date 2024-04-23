@@ -31,14 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Success
             $info = "<p class='alert alert-success'>User registered successfully.</p>";
 
+
+            $book_url = 'https://portfolio.f4futuretech.com/northeast/northeast_xpress/vehicles.php'; // Replace with the actual profile URL
             // Send welcome email to the user
             $templateFile = 'signup-template.html';
             $htmlContent = file_get_contents($templateFile);
 
-            // Replace placeholders with user's information
-            // $htmlContent = str_replace('{first_name}', $fname, $htmlContent);
-            // $htmlContent = str_replace('{last_name}', $lname, $htmlContent);
-            // $htmlContent = str_replace('{email}', $email, $htmlContent);
+            // Replace placeholder with OTP
+            $htmlContent = str_replace('{book_url}', $book_url, $htmlContent);
 
             // Send email to the user
             $to = $email;
@@ -49,12 +49,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'Content-type:text/html;charset=UTF-8';
 
             if (mail($to, $subject, $htmlContent, $headers)) {
-                $info .= "<div class='alert alert-success'>Success to send welcome email.</div>";
+                // $info .= "<div class='alert alert-success'>Success to send welcome email.</div>";
                 // Email sent successfully
             } else {
                 // Failed to send email
                 $info .= "<div class='alert alert-danger'>Failed to send welcome email.</div>";
             }
+            header('location:login.php');
         } else {
             // Error
             $info = "<p class='alert alert-danger'>Error: " . $conn->error . "</p>";
