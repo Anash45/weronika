@@ -43,7 +43,6 @@ if (isAdmin()) {
 
                     $profile_url = "";
                     // Replace placeholder with OTP
-                    $htmlContent = str_replace('{otp_code}', $otp, $htmlContent);
 
                     $htmlContent = str_replace('{profile_url}', $profile_url, $htmlContent);
 
@@ -105,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
 } elseif (isset($_GET['requestId'])) {
     $requestId = $_GET['requestId'];
     $selectedDate = $_GET['selectedDate'];
-    $message = 'Requesting parking space starting <b>' . date('F d, Y', strtotime($selectedDate)) . '</b> for this <a href="vehicle-details.php?id=' . $vehicleID . '" class="font-weight-bold text-dark">vehicle</a>.';
+    $message = 'Requesting parking space starting <b>' . date('F d, Y', strtotime($selectedDate)) . '</b> for this <a href="vehicle-details.php?id=' . $requestId . '" class="font-weight-bold text-dark">vehicle</a>.';
     sendMessage($message, 1, $requestId);
     $sql21 = "UPDATE vehicles SET approved = 3 WHERE id = '$requestId'";
     $conn->query($sql21);

@@ -50,7 +50,7 @@ $vehicleID = $_GET['id'];
             <div class="row">
                 <div class="col-12 col-md-10 col-lg-6 m-auto profile">
                     <h2 class="d-flex justify-content-between" id="fullName"><a href="vehicles.php" class="mr-2"><i
-                                class="fa fa-chevron-left back-icon text-secondary"></i></a><span class="mx-auto">Vehicle
+                                class="fa fa-chevron-left back-icon text-black"></i></a><span class="mx-auto">Vehicle
                             Information</span></h2>
                     <?php echo $info; ?>
                     <!-- Profile photo upload section (to be implemented) -->
