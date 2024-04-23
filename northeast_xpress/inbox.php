@@ -15,6 +15,9 @@ if (!isLoggedIn()) {
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="assets/css/style.css">
         <!-- Fonts -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
@@ -40,19 +43,21 @@ if (!isLoggedIn()) {
                         FROM messages
                         GROUP BY UserID
                     )
-                    ORDER BY MessageID DESC";
+                    ORDER BY `read` ASC, MessageID DESC";
                     $result = $conn->query($sql);
-                    $row = $result->fetch_assoc();
-                    if (!empty($row)) {
-                        $UserID = $row['UserID'];
-                        $sql1 = "SELECT * FROM users WHERE UserID = $UserID";
-                        $result1 = $conn->query($sql1);
-                        $row1 = $result1->fetch_assoc();
-                        echo '<a href="message.php?UserID='.$UserID.'" class="message rounded bg-light shadow-sm px-3 py-3 mb-3 w-100">
+                    if (mysqli_num_rows($result)) {
+                        while ($row = $result->fetch_assoc()) {
+                            $UserID = $row['UserID'];
+                            $sql1 = "SELECT * FROM users WHERE UserID = $UserID";
+                            $result1 = $conn->query($sql1);
+                            $row1 = $result1->fetch_assoc();
+                            $status = ($row['read'] == 0) ? 'new message' : 'read';
+                            echo '<a href="message.php?UserID=' . $UserID . '" class="message rounded bg-light shadow-sm px-3 py-3 mb-3 w-100">
                         <span class="msg-user">' . $row1['FirstName'] . ' ' . $row1['LastName'] . '</span>
-                        <span class="date-time">' . date('h:i A d M, Y', strtotime($row['Timestamp'])) . '</span>
+                        <span class="date-time">' . $status . '</span>
                     </a>';
-                    }else{
+                        }
+                    } else {
                         echo '<h4 class="text-center">No messages yet!</h4>';
                     }
                     ?>

@@ -26,7 +26,7 @@ if (isset($_GET['id']) && isset($_GET['approve']) && isAdmin()) {
     if ($conn->query($sql) === TRUE) {
         $info = "<div class='alert alert-success'>Vehicle status updated successfully</div>";
     } else {
-        $info = "<div class='alert alert-danger'>Error updating record: " . $conn->error."</div>";
+        $info = "<div class='alert alert-danger'>Error updating record: " . $conn->error . "</div>";
     }
 }
 $vehicleID = $_GET['id'];
@@ -39,6 +39,9 @@ $vehicleID = $_GET['id'];
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Northeast Xpress Inc</title>
         <!-- Fonts -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
@@ -60,7 +63,9 @@ $vehicleID = $_GET['id'];
         <div class="container-fluid profile-page">
             <div class="row">
                 <div class="col-12 col-md-10 col-lg-6 m-auto profile">
-                    <h2 id="fullName">Vehicle Information</h2>
+                    <h2 class="d-flex justify-content-between" id="fullName"><a href="vehicles.php" class="mr-2"><i
+                                class="fa fa-chevron-left back-icon text-secondary"></i></a><span class="mx-auto">Vehicle
+                            Information</span></h2>
                     <?php echo $info; ?>
                     <!-- Profile photo upload section (to be implemented) -->
                     <!-- Display profile information in a table -->
@@ -70,25 +75,34 @@ $vehicleID = $_GET['id'];
                         $sql = "SELECT * FROM vehicles WHERE id = $vehicleID";
                         $result = $conn->query($sql);
 
+                        // Mapping of keys to proper names
+                        $keyToNameMap = array(
+                            'vehicleType' => 'Vehicle Type',
+                            'companyName' => 'Company Name',
+                            'truckNumber' => 'Truck Number',
+                            'truckMake' => 'Truck Make',
+                            'truckPlateNumber' => 'Truck Plate Number',
+                            'DOTNumber' => 'DOT Number',
+                            'MCNumber' => 'MC Number',
+                            'insurancePolicyNumber' => 'Insurance Policy Number',
+                            'insurancePolicyExpirationDate' => 'Insurance Policy Expiration Date',
+                            'federalInspectionExpirationDate' => 'Federal Inspection Expiration Date',
+                            'stateInspectionExpirationDate' => 'State Inspection Expiration Date',
+                        );
+
                         if ($result && $result->num_rows > 0) {
                             // Output vehicle information in the table
                             echo '<table class="tprofile table table-borderless">';
                             while ($row = $result->fetch_assoc()) {
-                                echo '<tr><td><a class="btn btn-primary mr-3 text-white btn-sm" href="vehicles.php">Back</a></td><td>';
-                                if (isAdmin()) {
-                                    $statusBtn = (!$row['approved']) ? '<a class="btn btn-sm btn-success" href="?id=' . $vehicleID . '&approve=1">Approve</a>' : '<a class="btn btn-sm btn-danger" href="?id=' . $row['id'] . '&approve=0">Disapprove</a>';
-                                    echo $statusBtn;
-                                }
-                                echo '</td></tr>';
                                 // Loop through each column and display its name and value
-                                foreach ($row as $key => $value) {
-                                    if ($key == 'approved') {
-                                        $status = ($row['approved']) ? '<b class="text-success mr-2">Approved</b>' : '<b class="text-warning mr-2">Pending</b>';
-                                        $vehiclesHTML = $status;
-                                    } else {
-                                        $vehiclesHTML = $value;
+                                foreach ($keyToNameMap as $key => $value) {
+                                    echo '<tr>';
+                                    if (array_key_exists($key, $row)) {
+                                        $properName = $keyToNameMap[$key];
+                                        echo '<th>' . $properName . ':</th>';
+                                        echo '<td>' . $row[$key] . '</td>';
                                     }
-                                    echo '<tr><th>' . ucfirst($key) . ':</th><td>' . $vehiclesHTML . '</td></tr>';
+                                    echo '</tr>';
                                 }
                             }
                             echo '</table>';

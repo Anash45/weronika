@@ -97,6 +97,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Northeast Xpress Inc</title>
         <!-- Fonts -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
@@ -224,23 +227,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             // Construct HTML for each vehicle and append it to $vehiclesHTML
                                             $vehiclesHTML .= '<tr><td><div class="container-fluid vtable" id="inputvehicle"><div class="row"><div class="col-sm-12 vtabletext">';
                                             $vehiclesHTML .= '<p class="vehicleDescription">' . $row['companyName'] . ' ' . $row['truckMake'] . ' ' . $row['truckPlateNumber'] . '</p>';
-                                            $vehiclesHTML .= '</div></td><td><div class="col-sm-12 text-right vtableicon">';
-                                            $status = ($row['approved']) ? '<b class="text-success mr-2">Approved</b>' : '<b class="text-warning mr-2">Pending</b>';
+                                            $vehiclesHTML .= '</div></td><td><div class="col-sm-12 text-right vtableicon v-table-right">';
+                                            if ($row['approved'] == 1) {
+                                                $status = '<b class="text-success mr-2">APPROVED</b>';
+                                            } else if ($row['approved'] == 2) {
+                                                $status = '<b class="text-danger mr-2">DECLINED</b>';
+                                            } else {
+                                                $status = '<b class="text-warning mr-2">PENDING</b>';
+                                            }
                                             $vehiclesHTML .= $status;
-                                            if (isAdmin()) {
-                                                $statusBtn = (!$row['approved']) ? '<a class="btn btn-sm mr-1 btn-success" href="?id=' . $row['id'] . '&approve=1">Approve</a>' : '<a class="btn btn-sm mr-1 btn-danger" href="?id=' . $row['id'] . '&approve=0">Disapprove</a>';
-                                                $vehiclesHTML .= $statusBtn;
-                                            } else {
-                                                $remindBtn = '<a class="btn btn-sm mr-1 btn-success" href="message.php?remindDm=' . $row['id'] . '">Remind</a>';
-                                                $vehiclesHTML .= $remindBtn;
+                                            if (isUser()) {
+                                                $remindBtn = '<span class="request font-weight-bold text-secondary cursor-pointer mx-2" data-id="' . $row['id'] . '">REQUEST</span>';
+                                                $vehiclesHTML .= '<input class="datePicker d-none" type="date">' . $remindBtn;
                                             }
-                                            $vehiclesHTML .= '<a href="vehicle-details.php?id=' . $row['id'] . '" class="btn btn-primary mr-1 btn-sm">Details</a>';
+                                            $vehiclesHTML .= '<a href="vehicle-details.php?id=' . $row['id'] . '" class="font-weight-bold mx-2 text-secondary">Details</a>';
                                             if (isAdmin()) {
-                                                $vehiclesHTML .= '<a href="message.php?UserID='.$row['UserID'].'" class="btn btn-warning btn-sm"><img src="assets/img/speech-bubble.png" alt="bin icon" height="20"></a>';
-                                            } else {
-                                                $vehiclesHTML .= '<a href="message.php" class="btn btn-warning btn-sm"><img src="assets/img/speech-bubble.png" alt="bin icon" height="20"></a>';
+                                                $vehiclesHTML .= '<a href="message.php?UserID=' . $row['UserID'] . '" class="text-secondary mx-2"><i class="fa fa-envelope"></i></a>';
                                             }
-                                            $vehiclesHTML .= '<a href="?delete=' . $row['id'] . '" class="remove-vehicle-btn btn btn-light"><img src="assets/img/delete-button.png" alt="bin icon"></a>';
+                                            $vehiclesHTML .= '<a href="?delete=' . $row['id'] . '" class="remove-vehicle-btn btn"><img src="assets/img/delete-button.png" alt="bin icon"></a>';
                                             $vehiclesHTML .= '</div></div></div></td></tr>';
                                         }
                                     } else {
@@ -287,15 +291,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>Please provide as much detail as possible regarding<br> the issue your vehicle is encountering.</p>
             <form action="message.php" method="POST">
                 <!-- Dummy input fields -->
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required><br><br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required><br><br>
-                <label for="message">Message:</label><br>
-                <textarea id="message" name="message" rows="4" cols="40" required></textarea><br><br>
+                <div class="d-flex mb-2">
+                    <label for="name">Name:</label>
+                    <input type="text" class="ml-2 rounded-3 fix-inp" id="name" name="name" required>
+                </div>
+                <div class="d-flex mb-2">
+                    <label for="email">Email:</label>
+                    <input type="email" class="ml-2 rounded-3 fix-inp" id="email" name="email" required>
+                </div>
+                <div class="d-flex flex-column mb-3">
+                    <label for="message">Vehicle Issue:</label>
+                    <textarea id="message" name="message" class="rounded-3 fix-inp mt-1" rows="4" cols="40" required></textarea>
+                </div>
                 <div class="buttons">
-                    <button type="submit" class="fix-submit-btn" name="repairRequest">Send</button>
                     <button type="button" class="fix-close-btn" onclick="closeForm()">Close</button>
+                    <button type="submit" class="fix-submit-btn ml-auto" name="repairRequest">Send</button>
                 </div>
             </form>
         </div>
@@ -337,6 +347,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"
+            integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            $(document).ready(function () {
+                $('.request').click(function () {
+                    // Open the date picker associated with the clicked button
+                    $('.datepicker').datepicker('show');
+                });
+
+                // Capture the date selection event for all datepickers
+                $('.datepicker').on('changeDate', function (e) {
+                    // Get the selected date
+                    var selectedDate = e.date;
+
+                    var mysqlDatetime = formatDateToMySQLDatetime(selectedDate);
+                    // Get the message ID from the associated .request button
+                    var messageId = $(this).siblings('.request').data('id');
+
+                    // Construct the URL with parameters
+                    var url = 'message.php?requestId=' + messageId + '&selectedDate=' + mysqlDatetime;
+
+                    // Redirect to messages.php with the parameters
+                    window.location.href = url;
+                });
+            });
+            // Function to format date to MySQL DATETIME format
+            function formatDateToMySQLDatetime(date) {
+                // Ensure date is a valid Date object
+                if (!(date instanceof Date)) {
+                    return null;
+                }
+
+                // Format the date components
+                var year = date.getFullYear();
+                var month = padZero(date.getMonth() + 1); // Months are zero indexed, so add 1
+                var day = padZero(date.getDate());
+                var hours = padZero(date.getHours());
+                var minutes = padZero(date.getMinutes());
+                var seconds = padZero(date.getSeconds());
+
+                // Return formatted datetime string
+                return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+            }
+
+            // Function to pad zero to single-digit numbers
+            function padZero(num) {
+                return (num < 10 ? '0' : '') + num;
+            }
+
+        </script>
     </body>
 
 </html>

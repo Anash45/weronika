@@ -553,14 +553,14 @@ body {
 }
 
 .save-btn {
-    background-color: #ffc700;
+    background-color: #ffc700 !important;
     border: none;
     border-radius: 50px;
-    padding: 6px 25px;
+    padding: 6px 25px !important;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 1rem;
-    color: #000;
+    color: #000 !important;
     margin-top: 1rem;
 }
 
@@ -1226,7 +1226,55 @@ body {
     background-color: #dadada;
     border-radius: 15px 15px 15px 0px;
 }
+.w-fit{
+    width: fit-content !important;
+}
+.v-table-right{
+    font-size: 14px !important;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.datepicker-days th, .datepicker-days td{
+    padding: 5px;
+    cursor: pointer;
+    background-color: #ffc700;
+}
+.datepicker{
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%,-50%) !important;
+    padding: 10px !important;
+    background-color: #ffc700;
+}
+.btn-approve,
+.btn-pending,
+.btn-decline{
+    border-radius: 999px;
+    font-weight: 500;
+}
+.btn-pending{
+    background-color: #F0F0F0;
+}
+.btn-approved{
+    background-color: #69CC78;
+    color: #FFF;
+}
+.btn-declined{
+    background-color: #E35151;
+    color: #FFFFFF;
+}
+.rounded-3{
+    border-radius: 20px;
+}
+.back-icon{
+    font-size: 24px !important;
+}
 
+.fix-inp{
+    width: 100%;
+    border: 1px solid #737373;
+}
 /* MEDIA QUERIES */
 @media (min-width: 768px) {
 

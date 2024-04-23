@@ -21,26 +21,6 @@ if (isAdmin()) {
     }
 }
 
-function sendMessage($message)
-{
-    global $conn;
-    global $userID;
-    // Get the sender from the session (assuming sender is user)
-
-    if (isAdmin()) {
-        $sender = 'admin';
-    } else {
-        $sender = 'user';
-    }
-
-    // Construct the SQL INSERT statement
-    $sql = "INSERT INTO messages (UserID, MessageContent, sender) VALUES ('$userID', '$message', '$sender')";
-
-    // Execute the SQL statement
-    if ($conn->query($sql) !== TRUE) {
-        header("Location: " . $_SERVER['REQUEST_URI']);
-    }
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
     // Get the message from the form
@@ -60,9 +40,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
     $formatMessage = '<b>Subject: Vehicle Repair Request</b><br>
     <b>From:</b> ' . $name . ' <br>
     <b>Email:</b> ' . $email . ' <br>
-    <b>Message:</b> ' . $message;
+    <b>Vehicle Issue:</b> ' . $message;
     sendMessage($formatMessage);
     header("Location: message.php");
+} elseif (isset($_GET['requestId'])) {
+    $requestId = $_GET['requestId'];
+    $selectedDate = $_GET['selectedDate'];
+    $message = 'Requesting parking space starting <b>' . date('F d, Y', strtotime($selectedDate)) . '</b> for this <a href="vehicle-details.php?id=' . $vehicleID . '" class="font-weight-bold">vehicle</a>.';
+    sendMessage($message, 1, $requestId);
+    header("Location: message.php");
+}
+
+function sendMessage($message, $isRequest = 0, $requestId = 0)
+{
+    global $conn;
+    global $userID;
+    // Get the sender from the session (assuming sender is user)
+
+    if (isAdmin()) {
+        $sender = 'admin';
+    } else {
+        $sender = 'user';
+    }
+
+    // Construct the SQL INSERT statement
+    $sql = "INSERT INTO messages (UserID, MessageContent, sender, isRequest, requestID) VALUES ('$userID', '$message', '$sender', '$isRequest', '$requestId')";
+
+    // Execute the SQL statement
+    if ($conn->query($sql) !== TRUE) {
+        header("Location: " . $_SERVER['REQUEST_URI']);
+    }
 }
 ?>
 <html lang="en">
@@ -76,6 +83,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="assets/css/style.css">
         <!-- Fonts -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
@@ -93,16 +103,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
             <div class="container">
                 <div class="col-md-8 col-12 messages mx-auto pb-3">
                     <div class="chat border">
-                        <div class="chat-header p-2 border-bottom d-flex align-items-center ">
-                            <a href="vehicles.php" class="btn btn-primary mr-3 text-white btn-sm">Back</a><h5 class="mb-0">Chat</h5>
-                        </div>
-                        <div class="chat-body p-2" id="chat-body">
-                            <?php
-                            $sql = "SELECT * FROM messages WHERE UserID = '$userID' ORDER BY MessageID";
-                            $result = $conn->query($sql);
-                            $row = $result->fetch_assoc();
-                            if (!empty($row)) {
+                        <?php
+                        $sql = "SELECT * FROM messages WHERE UserID = '$userID' ORDER BY MessageID";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+                        if (!empty($row)) {
+                            $userID = $row['UserID'];
+                            $sql2 = "SELECT * FROM users WHERE UserID = '$userID'";
+                            $result2 = $conn->query($sql2);
+                            $row2 = $result2->fetch_assoc();
+                            $username = $row2['FirstName'];
+                            ?>
+                            <div class="chat-header p-2 border-bottom d-flex align-items-center ">
+                                <a href="vehicles.php" class="btn fw-bold text-secondary text-white"><i
+                                        class="fa fa-chevron-left"></i></a>
+                                <h5 class="mb-0 font-weight-bold"><?php echo $username; ?></h5>
+                            </div>
+                            <div class="chat-body p-2" id="chat-body">
+                                <?php
                                 while ($row = $result->fetch_assoc()) {
+                                    $msgID = $row['MessageID'];
+                                    // Check if the sender is admin or user
+                                    if (isAdmin()) {
+                                        $sql1 = "UPDATE messages SET `read` = 1 WHERE `MessageID` = '$msgID'";
+                                        $conn->query($sql1);
+                                    }
                                     if (isAdmin() && $row['sender'] == 'admin') {
                                         echo '<div class="chat-message sender-message">
                                         <div class="message-content">
@@ -125,9 +150,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
                                         </div>
                                     </div>';
                                     }
+                                    if ($row['isRequest'] == 1) {
+                                        $requestId1 = $row['requestID'];
+                                        $sql12 = "SELECT * FROM vehicles WHERE id = '$requestId1'";
+                                        $result12 = $conn->query($sql12);
+                                        $row12 = $result12->fetch_assoc();
+                                        $approved = $declined = '';
+                                        if ($row12['approved'] == 2) {
+                                            $declined = 'btn-declined';
+                                        } elseif ($row12['approved'] == 1) {
+                                            $approved = 'btn-approved';
+                                        }
+                                        echo '
+                                <div class="chat-message sender-message">
+                                    <div class="mr-auto d-flex flex-column w-fit mb-2">
+                                        <a href="vehicle-details.php?id=' . $row['requestID'] . '&approve=1" class="btn btn-pending '.$approved.' mb-2 btn-sm px-4">APPROVE</a>
+                                        <a href="vehicle-details.php?id=' . $row['requestID'] . '&approve=2" class="btn btn-pending '.$declined.' btn-sm px-4">DECLINE</a>
+                                    </div>
+                                </div>';
+                                    }
                                 }
-                            }
-                            ?>
+                        }
+                        ?>
                         </div>
                         <div class="chat-footer">
                             <form method="post" action="" class="d-flex mb-0">
