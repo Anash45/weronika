@@ -33,7 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Send OTP to the email address
             $to = $email;
             $subject = 'Reset Password OTP';
-            $headers = 'Reply-To: info@f4futuretech.com' . "\r\n" .
+            $headers = 'From: Northeast Xpress Inc. <info@northeastxpressinc.com>' . "\r\n";
+            $headers .= 'Reply-To: info@northeastxpressinc.com' . "\r\n" .
                 'X-Mailer: PHP/' . phpversion() . "\r\n" .
                 'MIME-Version: 1.0' . "\r\n" .
                 'Content-type:text/html;charset=UTF-8';

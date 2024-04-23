@@ -33,7 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ";
 
     // Set additional headers
-    $headers = "Reply-To: {$_POST['email']}" . "\r\n";
+    $headers = 'From: Northeast Xpress Inc. <info@northeastxpressinc.com>' . "\r\n";
+    $headers .= "Reply-To: {$_POST['email']}" . "\r\n";
     $headers .= "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1" . "\r\n";
 
