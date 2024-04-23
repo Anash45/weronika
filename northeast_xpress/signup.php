@@ -32,13 +32,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $info = "<p class='alert alert-success'>User registered successfully.</p>";
 
             // Send welcome email to the user
-            $templateFile = 'welcome-template.html';
+            $templateFile = 'signup-template.html';
             $htmlContent = file_get_contents($templateFile);
 
             // Replace placeholders with user's information
-            $htmlContent = str_replace('{first_name}', $fname, $htmlContent);
-            $htmlContent = str_replace('{last_name}', $lname, $htmlContent);
-            $htmlContent = str_replace('{email}', $email, $htmlContent);
+            // $htmlContent = str_replace('{first_name}', $fname, $htmlContent);
+            // $htmlContent = str_replace('{last_name}', $lname, $htmlContent);
+            // $htmlContent = str_replace('{email}', $email, $htmlContent);
 
             // Send email to the user
             $to = $email;
