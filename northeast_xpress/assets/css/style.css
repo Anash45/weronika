@@ -1287,12 +1287,14 @@ body {
     background-color: #F0F0F0;
 }
 
-.btn-approved {
+.btn-approved,
+.d-flex .btn-pending:first-child:hover {
     background-color: #69CC78;
     color: #FFF;
 }
 
-.btn-declined {
+.btn-declined,
+.d-flex .btn-pending:last-child:hover {
     background-color: #E35151;
     color: #FFFFFF;
 }
