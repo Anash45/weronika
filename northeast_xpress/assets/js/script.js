@@ -68,6 +68,9 @@ function updateVehicleHeading() {
         const rowCount = document.querySelectorAll('#tbody tr').length;
         const vehicleText = rowCount === 1 ? 'vehicle' : 'vehicles';
         heading.textContent = `You currently have ${rowCount} ${vehicleText}`;
+        if(rowCount > 0){
+            document.getElementById('placeholder').innerHTML = '';
+        }
     }
 }
 

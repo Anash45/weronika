@@ -26,7 +26,7 @@ body {
 }
 
 .container-fluid {
-    margin: .75rem .5rem;
+    margin: .75rem 0 !important;
 }
 
 .navbar-brand,
@@ -1358,6 +1358,9 @@ border: 0 !important;
 /* MEDIA QUERIES */
 @media (min-width: 768px) {
 
+    .container-fluid {
+        margin: .75rem 0 !important;
+    }
     .navbar-brand,
     .navbar-brand:hover {
         font-size: 1.25rem;

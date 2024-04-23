@@ -260,7 +260,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <td class="text-right">
                                                 <span id="placeholder">It's looking empty in here...</span>
                                             </td>
-                                            <td><button onclick="openFormVehicle();" type="button"
+                                            <td class="text-right"><button onclick="openFormVehicle();" type="button"
                                                     class="add-vehicle-btn" id="add-vehicle-btn">+ Add Vehicle</button>
                                             </td>
                                         </tr>
